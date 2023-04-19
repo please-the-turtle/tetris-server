@@ -1,15 +1,12 @@
-package com.viklov.tetris.controller;
+package com.viklov.tetris.user;
 
-import com.viklov.tetris.exception.AuthException;
-import com.viklov.tetris.exception.UserAlreadyExistsException;
-import com.viklov.tetris.exception.UserNotFoundException;
-import com.viklov.tetris.model.ErrorDetails;
+import com.viklov.tetris.error.ErrorDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ExceptionControllerAdvice {
+public class UserExceptionControllerAdvice {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDetails> exceptionUserNotFoundHandler() {
@@ -25,16 +22,6 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<ErrorDetails> exceptionUserAlreadyExistsHandler() {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setMessage("User with this username is already registered.");
-
-        return ResponseEntity
-                .badRequest()
-                .body(errorDetails);
-    }
-
-    @ExceptionHandler(AuthException.class)
-    public ResponseEntity<ErrorDetails> exceptionAuthHandler(AuthException e) {
-        ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setMessage(e.getMessage());
 
         return ResponseEntity
                 .badRequest()

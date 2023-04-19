@@ -1,4 +1,4 @@
-package com.viklov.tetris.domain;
+package com.viklov.tetris.authentication.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

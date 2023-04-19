@@ -1,4 +1,4 @@
-package com.viklov.tetris.model;
+package com.viklov.tetris.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

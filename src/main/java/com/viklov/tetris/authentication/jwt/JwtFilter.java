@@ -1,8 +1,5 @@
-package com.viklov.tetris.filter;
+package com.viklov.tetris.authentication.jwt;
 
-import com.viklov.tetris.domain.JwtAuthentication;
-import com.viklov.tetris.service.JwtProvider;
-import com.viklov.tetris.service.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,9 +1,8 @@
-package com.viklov.tetris.controller;
+package com.viklov.tetris.authentication;
 
-import com.viklov.tetris.domain.JwtRequest;
-import com.viklov.tetris.domain.JwtResponse;
-import com.viklov.tetris.domain.RefreshJwtRequest;
-import com.viklov.tetris.service.AuthService;
+import com.viklov.tetris.authentication.jwt.JwtRequest;
+import com.viklov.tetris.authentication.jwt.JwtResponse;
+import com.viklov.tetris.authentication.jwt.RefreshJwtRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

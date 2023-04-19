@@ -1,7 +1,6 @@
-package com.viklov.tetris.service;
+package com.viklov.tetris.authentication.jwt;
 
-import com.viklov.tetris.domain.JwtAuthentication;
-import com.viklov.tetris.model.Role;
+import com.viklov.tetris.authentication.Role;
 import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

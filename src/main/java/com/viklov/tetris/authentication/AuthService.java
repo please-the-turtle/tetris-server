@@ -1,15 +1,16 @@
-package com.viklov.tetris.service;
+package com.viklov.tetris.authentication;
 
-import com.viklov.tetris.domain.JwtAuthentication;
-import com.viklov.tetris.domain.JwtRequest;
-import com.viklov.tetris.domain.JwtResponse;
-import com.viklov.tetris.exception.AuthException;
-import com.viklov.tetris.model.User;
+import com.viklov.tetris.authentication.jwt.JwtAuthentication;
+import com.viklov.tetris.authentication.jwt.JwtProvider;
+import com.viklov.tetris.authentication.jwt.JwtRequest;
+import com.viklov.tetris.authentication.jwt.JwtResponse;
+import com.viklov.tetris.user.User;
+import com.viklov.tetris.user.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -20,14 +21,14 @@ import java.util.Map;
 public class AuthService {
 
     private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final Map<String, String> refreshStorage = new HashMap<>();
     private final JwtProvider jwtProvider;
 
     public JwtResponse login(@NonNull JwtRequest authRequest) {
         final User user = userService.loadUserByUsername(authRequest.getUsername());
 
-        if (!bCryptPasswordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             throw new AuthException("Invalid password.");
         }
 

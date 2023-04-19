@@ -1,4 +1,4 @@
-package com.viklov.tetris.exception;
+package com.viklov.tetris.user;
 
 public class UserAlreadyExistsException extends RuntimeException{
 }

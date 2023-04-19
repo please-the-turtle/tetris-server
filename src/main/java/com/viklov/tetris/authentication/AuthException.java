@@ -1,4 +1,4 @@
-package com.viklov.tetris.exception;
+package com.viklov.tetris.authentication;
 
 public class AuthException extends RuntimeException{
 

@@ -1,4 +1,4 @@
-package com.viklov.tetris.model;
+package com.viklov.tetris.authentication;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

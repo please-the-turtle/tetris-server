@@ -1,8 +1,8 @@
-package com.viklov.tetris.domain;
+package com.viklov.tetris.authentication.jwt;
 
 
 
-import com.viklov.tetris.model.Role;
+import com.viklov.tetris.authentication.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;

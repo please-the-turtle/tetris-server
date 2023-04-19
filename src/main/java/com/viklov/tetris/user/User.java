@@ -1,5 +1,6 @@
-package com.viklov.tetris.model;
+package com.viklov.tetris.user;
 
+import com.viklov.tetris.authentication.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

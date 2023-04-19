@@ -1,9 +1,7 @@
-package com.viklov.tetris.controller;
+package com.viklov.tetris.user;
 
-import com.viklov.tetris.domain.JwtAuthentication;
-import com.viklov.tetris.model.User;
-import com.viklov.tetris.service.AuthService;
-import com.viklov.tetris.service.UserService;
+import com.viklov.tetris.authentication.jwt.JwtAuthentication;
+import com.viklov.tetris.authentication.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UsersController {
 
-    private final UserService userService;
     private final AuthService authService;
-
-    @PostMapping(path = "register")
-    public ResponseEntity<User> register(
-            @RequestBody User user
-    ) {
-        User newUser = userService.createUser(user);
-
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    }
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("hello/user")

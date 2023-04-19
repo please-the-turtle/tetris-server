@@ -1,6 +1,6 @@
-package com.viklov.tetris.service;
+package com.viklov.tetris.authentication.jwt;
 
-import com.viklov.tetris.model.User;
+import com.viklov.tetris.user.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

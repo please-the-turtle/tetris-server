@@ -2,7 +2,6 @@ package com.viklov.tetris.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viklov.tetris.error.ErrorDetails;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException)
-            throws IOException, ServletException {
+            throws IOException {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setHeader("Content-Type", "application/json");
         ErrorDetails errorDetails = new ErrorDetails();

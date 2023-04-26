@@ -1,7 +1,5 @@
 package com.viklov.tetris.authentication.jwt;
 
-
-
 import com.viklov.tetris.authentication.Role;
 import lombok.Getter;
 import lombok.Setter;

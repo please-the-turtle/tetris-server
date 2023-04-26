@@ -4,20 +4,23 @@ import com.viklov.tetris.authentication.Role;
 import com.viklov.tetris.user.User;
 import com.viklov.tetris.user.UserAlreadyExistsException;
 import com.viklov.tetris.user.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Collections;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class RegistrationService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public User registerUser(RegistrationData registrationData) {
+    public User registerUser(@Valid RegistrationData registrationData) {
         if (isUsernameTaken(registrationData.getUsername())) {
             throw new UserAlreadyExistsException();
         }

@@ -3,6 +3,7 @@ package com.viklov.tetris.user;
 import com.viklov.tetris.authentication.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -27,8 +28,10 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    @Size(min = 8, message = "Password must contain at least 8 characters.")
     @NotEmpty
+    @Size(min = 8, message = "Password must contain at least 8 chars.")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[a-zA-Z]).*$",
+            message = "Password must contain letters and numbers.")
     private String password;
 
     @ElementCollection(targetClass = Role.class)

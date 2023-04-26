@@ -1,9 +1,6 @@
 package com.viklov.tetris.authentication;
 
-import com.viklov.tetris.authentication.jwt.JwtAuthentication;
-import com.viklov.tetris.authentication.jwt.JwtProvider;
-import com.viklov.tetris.authentication.jwt.JwtRequest;
-import com.viklov.tetris.authentication.jwt.JwtResponse;
+import com.viklov.tetris.authentication.jwt.*;
 import com.viklov.tetris.user.User;
 import com.viklov.tetris.user.UserService;
 import io.jsonwebtoken.Claims;
@@ -29,7 +26,7 @@ public class AuthService {
         final User user = userService.loadUserByUsername(authRequest.getUsername());
 
         if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
-            throw new AuthException("Invalid password.");
+            throw new InvalidPasswordException();
         }
 
         final String accessToken = jwtProvider.generateAccessToken(user);
@@ -39,13 +36,19 @@ public class AuthService {
         return new JwtResponse(accessToken, refreshToken);
     }
 
+    public void logout(@NonNull String refreshToken) {
+        final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
+        final String username = claims.getSubject();
+        refreshStorage.remove(username);
+    }
+
     public JwtResponse getAccessToken(@NonNull String refreshToken) {
         if (jwtProvider.validateRefreshToken(refreshToken)) {
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
-            final String login = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(login);
+            final String username = claims.getSubject();
+            final String saveRefreshToken = refreshStorage.get(username);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.loadUserByUsername(login);
+                final User user = userService.loadUserByUsername(username);
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 return new JwtResponse(accessToken, null);
             }
@@ -55,12 +58,12 @@ public class AuthService {
     }
 
     public JwtResponse refresh(@NonNull String refreshToken) {
-        if (!jwtProvider.validateRefreshToken(refreshToken)) {
+        if (jwtProvider.validateRefreshToken(refreshToken)) {
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
-            final String login = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(login);
+            final String username = claims.getSubject();
+            final String saveRefreshToken = refreshStorage.get(username);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.loadUserByUsername(login);
+                final User user = userService.loadUserByUsername(username);
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 refreshStorage.put(user.getUsername(), newRefreshToken);
@@ -68,7 +71,7 @@ public class AuthService {
             }
         }
 
-        throw new AuthException("Invalid token.");
+        throw new InvalidTokenException();
     }
 
     public JwtAuthentication getAuthInfo() {

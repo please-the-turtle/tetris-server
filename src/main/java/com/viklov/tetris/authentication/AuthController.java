@@ -59,13 +59,13 @@ public class AuthController {
     }
 
     @GetMapping("refresh")
-    public ResponseEntity<Void> getNewRefreshToken(@CookieValue(name = "refreshToken") String refreshToken) {
+    public ResponseEntity<JwtResponse> getNewRefreshToken(@CookieValue(name = "refreshToken") String refreshToken) {
         final JwtResponse token = authService.refresh(refreshToken);
         ResponseCookie refreshTokenCookie = createRefreshTokenCookie(token.getRefreshToken());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
-                .build();
+                .body(token);
     }
 
     private ResponseCookie createRefreshTokenCookie(String refreshToken) {
@@ -74,7 +74,7 @@ public class AuthController {
                 .httpOnly(true)
                 .maxAge(TimeUnit.DAYS.toSeconds(jwtRefreshExpiration))
                 .secure(true)
-                .sameSite("Lax")
+                .sameSite("None")
                 .build();
     }
 }

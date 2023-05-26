@@ -77,15 +77,15 @@ public class JwtProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException expEx) {
-            log.error("Token expired", expEx);
+            log.error("Token expired.", expEx);
         } catch (UnsupportedJwtException unsEx) {
-            log.error("Unsupported jwt", unsEx);
+            log.error("Unsupported jwt.", unsEx);
         } catch (MalformedJwtException mjEx) {
-            log.error("Malformed jwt", mjEx);
+            log.error("Malformed jwt.", mjEx);
         } catch (SignatureException sEx) {
-            log.error("Invalid signature", sEx);
+            log.error("Invalid signature.", sEx);
         } catch (Exception e) {
-            log.error("invalid token", e);
+            log.error("Invalid token.", e);
         }
         return false;
     }

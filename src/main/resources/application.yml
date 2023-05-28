@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:jdbc:lob:non_contextual_creation: true
+jwt:
+  secret:
+    access: jf+E9/3Cme7u5qu9Ly5wuhEIs1P+r5UVr0ow8TzwSesskS1wudbdVG0dxecmvQCcAyVUcqByoqaIbcMilsGXFQ==
+    accessExpirationMinutes: 5
+    refresh: rxlClfNuncubr0ZNkhYLOrnw0yx1VOgyxL63LwBj28eIc1EREl6hONzCE6ezqonAOF/1oyn5KVyBS5SyD2dYWA==
+    refreshExpirationDays: 30
+web:
+  cors:
+    allowed-origins: >
+      http://localhost:3000,
+      http://192.168.1.45:3000

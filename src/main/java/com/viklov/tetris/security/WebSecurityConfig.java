@@ -18,6 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -26,9 +28,8 @@ public class WebSecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final AccessDeniedHandler accessDeniedHandler;
-
-    @Value("${endpoints.cors.allowed-origins}")
-    private final String[] allowedOrigins;
+    @Value("${web.cors.allowed-origins}")
+    private final List<String> allowedOrigins;
 
     private static final String[] AUTH_WHITELIST = {
             "/authenticate",
@@ -52,9 +53,7 @@ public class WebSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        for (String origin : allowedOrigins) {
-            config.addAllowedOrigin(origin);
-        }
+        config.setAllowedOrigins(allowedOrigins);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

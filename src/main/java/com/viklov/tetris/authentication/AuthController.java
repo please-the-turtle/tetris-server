@@ -73,7 +73,8 @@ public class AuthController {
                 .value(refreshToken)
                 .httpOnly(true)
                 .maxAge(TimeUnit.DAYS.toSeconds(jwtRefreshExpiration))
-                .secure(true)
+                // TODO Enable secure after setting https
+                //.secure(true)
                 .sameSite("None")
                 .build();
     }

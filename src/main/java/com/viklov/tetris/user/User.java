@@ -1,16 +1,16 @@
 package com.viklov.tetris.user;
 
 import com.viklov.tetris.authentication.Role;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,28 +18,17 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+    private String id;
 
-    @Column(name = "username", unique = true)
     @Size(min = 2, max = 20, message = "Username must contain between 2 and 20 characters.")
     @NotEmpty
     private String username;
 
-    @Column(name = "password")
     @NotEmpty
     @Size(min = 8, message = "Password must contain at least 8 chars.")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[a-zA-Z]).*$",
             message = "Password must contain letters and numbers.")
     private String password;
 
-    @ElementCollection(targetClass = Role.class)
-    @CollectionTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 }

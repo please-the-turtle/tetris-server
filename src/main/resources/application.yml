@@ -6,6 +6,14 @@ spring:
       ddl-auto: update
     properties:
       hibernate:jdbc:lob:non_contextual_creation: true
+  data:
+    mongodb:
+      authenticationDatabase: admin
+      username: spring
+      password: springpwd
+      database: user_db
+      port: 27017
+      host: localhost
 jwt:
   secret:
     access: jf+E9/3Cme7u5qu9Ly5wuhEIs1P+r5UVr0ow8TzwSesskS1wudbdVG0dxecmvQCcAyVUcqByoqaIbcMilsGXFQ==
